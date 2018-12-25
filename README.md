@@ -19,8 +19,8 @@ The idea of `duix` is to reuse some old knowledge to solve only one simple probl
 1. `Buttons` component is gonna add or subtract.
 2. `Viewer` component is gonna show the value
 
-**index.js**:
 ```js
+// index.js
 import duix from 'duix';
 
 // Set `null` as default `user` value
@@ -31,8 +31,8 @@ class App extends Component {
 }
 ```
 
-**Buttons.js**
 ```js
+// Buttons.js
 import duix from 'duix';
 
 class Buttons extends Component {
@@ -50,8 +50,8 @@ class Buttons extends Component {
 }
 ```
 
-**Viewer.js**
 ```js
+// Viewer.js
 import duix from 'duix';
 
 class Viewer extends Component {
@@ -95,8 +95,8 @@ So, could you understand what happened there? Only 3 things on `duix`:
 
 The code:
 
-**index.js**:
 ```js
+// index.js
 import duix from 'duix';
 
 // Set `null` as default `user` value
@@ -107,8 +107,8 @@ class App extends Component {
 }
 ```
 
-**Login.js**
 ```js
+// Login.js
 import duix from 'duix';
 // Let's suppose this `actions` is an object with all the functions necessary to login an user
 import { login } from 'actions';
@@ -124,8 +124,8 @@ class Login extends Component {
 }
 ```
 
-**Logout.js**
 ```js
+// Logout.js
 import duix from 'duix';
 
 class Logout extends Component {
@@ -137,8 +137,8 @@ class Logout extends Component {
 }
 ```
 
-**actions.js**
 ```js
+// actions.js
 import duix from 'duix';
 
 export default {
@@ -160,8 +160,8 @@ export default {
 };
 ```
 
-**Header.js**
 ```js
+// Header.js
 import duix from 'duix';
 
 class Header extends Component {
