@@ -28,7 +28,7 @@ I'm a React dev, and I used Redux a couple of times. After creating this tool (I
 If your team is not feeling very well with the current State Managers complexity, I'd say that you should try this tool. But, due to it's not in the `declarative hype`, I'd preffer to say: DON'T USE IT!
 
 ## The `duix` approach
-`duix` just have a state that is just a plain object, and some listeners (publish-subscribers) that are gonna be called every time the subscribed-value value change.
+`duix` just have a state that is just a plain object, and some listeners (publish-subscribers) that are gonna be called every time the subscribed-value change.
 
 ## The Counter Example
 1. `Buttons` component is gonna add or subtract.
