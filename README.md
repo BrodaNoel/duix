@@ -103,8 +103,8 @@ So, could you understand what happened there? Only 3 things on `duix`:
 4. Someone is gonna `set` the new value every time it have to be changed.
 
 ## The Login Example
-1. The main file in the app define the initial value for the `user` object.
-2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is defined, the user is logged).
+1. The main file in the app defines the initial value for the `user` object.
+2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is not `null`, it's because the user is logged).
 3. The `Login` component is gonna call a funcion that is gonna do the API call to check if the credentials are OK.
 4. The `LogOut` component is gonna logout the user. :shrug:
 
