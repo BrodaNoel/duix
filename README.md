@@ -13,7 +13,7 @@ Because some ~most~ of `*x` add unnecessary complexity.
 The idea of `duix` is to reuse some old knowledge to solve only one simple problem: Keep 2 components on sync.
 
 ## The `duix` approach
-`duix` just have a state that is just a plain object, and some listeners (publish-subscribers) that are gonna be allerted after the value change.
+`duix` just have a state that is just a plain object, and some listeners (publish-subscribers) that are gonna be called every time the subscribed-value value change.
 
 ## The Counter Example
 1. `Buttons` component is gonna add or subtract.
