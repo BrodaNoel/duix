@@ -90,7 +90,7 @@ So, could you understand what happened there? Only 3 things on `duix`:
 ## The Login Example
 1. The main file in the app define the initial value for the `user` object.
 2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is defined, the user is logged).
-3. The `Login` component is gonna call a funcion that is gonna made the API call to check if the user is logged.
+3. The `Login` component is gonna call a funcion that is gonna do the API call to check if the credentials are OK.
 4. The `LogOut` component is gonna logout the user. :shrug:
 
 The code:
@@ -111,13 +111,12 @@ class App extends Component {
 // Login.js
 import duix from 'duix';
 // Let's suppose this `actions` is an object with all the functions necessary to login an user
-import { login } from 'actions';
+import { loginWithCredentials } from 'actions';
 
 class Login extends Component {
   handleLogin = (email, password) => {
-    login.withCredentials(email, password).then((user) => {
-      duix.set('user', user);
-    });
+    // Here we are NOT gonna change the `user` value.
+    loginWithCredentials(email, password);
   };
 
   // ...
@@ -130,6 +129,8 @@ import duix from 'duix';
 
 class Logout extends Component {
   handleLogout = (email, password) => {
+    // Whatever the backend send us, let's set it.
+    // We suppouse the backend send `null` if the credentials were wrong, or the proper `user` object if the credentials were OK.
     duix.set('user', null);
   };
 
@@ -142,20 +143,18 @@ class Logout extends Component {
 import duix from 'duix';
 
 export default {
-  login: {
-    withCredentials: (email, password) => {
-      fetch(
-        'http://example.com/api/login',
-        // ...
-      ).then(r => r.json())
-      .then((user) => {
-        /**
-         * Here, let's suppose that the backend return `null` if
-         * the user is wrong, or the user object if the login is correct
-         */
-        duix.set('user', user);
-      });
-    }
+  loginWithCredentials: (email, password) => {
+    fetch(
+      'http://example.com/api/login',
+      // ...
+    ).then(r => r.json())
+    .then((user) => {
+      /**
+       * Here, let's suppose that the backend return `null` if
+       * the user is wrong, or the user object if the login is correct
+       */
+      duix.set('user', user);
+    });
   }
 };
 ```
