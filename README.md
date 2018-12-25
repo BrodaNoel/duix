@@ -129,8 +129,6 @@ import duix from 'duix';
 
 class Logout extends Component {
   handleLogout = (email, password) => {
-    // Whatever the backend send us, let's set it.
-    // We suppouse the backend send `null` if the credentials were wrong, or the proper `user` object if the credentials were OK.
     duix.set('user', null);
   };
 
@@ -150,8 +148,9 @@ export default {
     ).then(r => r.json())
     .then((user) => {
       /**
-       * Here, let's suppose that the backend return `null` if
-       * the user is wrong, or the user object if the login is correct
+       * Whatever the backend send us, let's set it.
+       *
+       * Let's suppose the backend send `null` if the credentials were wrong, or the proper `user` object if the credentials were OK.
        */
       duix.set('user', user);
     });
