@@ -105,7 +105,7 @@ So, could you understand what happened there? Only 3 things on `duix`:
 ## The Login Example
 1. The main file in the app defines the initial value for the `user` object.
 2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is not `null`, it's because the user is logged).
-3. The `Login` component is gonna call a funcion that is gonna do the API call to check if the credentials are OK.
+3. The `Login` component is gonna call a function that is gonna do the API call to check if the credentials are OK.
 4. The `LogOut` component is gonna logout the user. :shrug:
 
 The code:
@@ -143,7 +143,7 @@ class Login extends Component {
 import duix from 'duix';
 
 class Logout extends Component {
-  handleLogout = (email, password) => {
+  handleLogout = () => {
     duix.set('user', null);
   };
 
@@ -215,3 +215,7 @@ So, could you understand what happened there? Only 3 things on `duix`:
 
 
 "That's all, folks"
+
+PS.: Please, don't add Github starts. That's a terrible feature that I hope to never see again in 2019.
+
+PPS.: 10 minutes ago it was Christmas. This is my gif for te community.
