@@ -12,6 +12,21 @@ Because some ~most~ of `*x` add unnecessary complexity.
 
 The idea of `duix` is to reuse some old knowledge to solve only one simple problem: Keep 2 components on sync.
 
+There are 2 things that I keep on mind while working:
+1. **KISS**: Keep it simple, stupid.
+2. **Pareto principle**: The 80% and 20%. The 80% of your bugs, are gonna be always the same 2 or 3 issues that you always see in every project.
+
+The KISS patter is very clear, but I believe the Pareto principle deserves more details:
+
+I believe that if you added redux in 10 projects, you may added it 8 times just to solve 1 issue: "Keep a couple of vars on sync between components", and also 2 times that you solves tons of issues that it absolutelly worth it.
+But, what about those 8 times that you added Redux only to keep 1 var on sync? You only needed a global state var and a callback, but you added Redux.
+
+The idea of `duix` is to cover those 8 times that you added Redux only because you needed to keep on sync vars between components. Just that. There is a global `state` object, that you `set` values, or `get` values, and you can `subscribe` or `unsubscribe`, and every time someone `set` a new value, all the subscribers are gonna be called receiving the new and the old value.
+
+I'm a React dev, and I used Redux a couple of times. After creating this tool (I was using it during one whole year), I used this tool in 5 projects, and I had to use Redux in only 1.
+
+If your team is not feeling very well with the current State Managers complexity, I'd say that you should try this tool. But, due to it's not in the `declarative hype`, I'd preffer to say: DON'T USE IT!
+
 ## The `duix` approach
 `duix` just have a state that is just a plain object, and some listeners (publish-subscribers) that are gonna be called every time the subscribed-value value change.
 
@@ -150,7 +165,8 @@ export default {
       /**
        * Whatever the backend send us, let's set it.
        *
-       * Let's suppose the backend send `null` if the credentials were wrong, or the proper `user` object if the credentials were OK.
+       * Let's suppose the backend send `null` if the credentials were wrong,
+       * or the proper `user` object if the credentials were OK.
        */
       duix.set('user', user);
     });
@@ -169,10 +185,12 @@ class Header extends Component {
   };
 
   componentDidMount() {
+    // Let's subscribe to the `user` changes
     this.unsubscribe[0] = duix.subscribe('user', this.onUserChange);
   }
 
   componentWillUnmount() {
+    // Let's unsubscribe.
     this.unsubscribe[0]();
   }
 
@@ -192,7 +210,7 @@ class Header extends Component {
 
 So, could you understand what happened there? Only 3 things on `duix`:
 1. Someone needs to set the default value
-2. Someone is gonna `subscribe` to a value change
+2. Someone is gonna `subscribe` to a value change, or unsubscribe when component unmount.
 3. Someone is gonna `set` the new value every time it changes
 
 
