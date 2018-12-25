@@ -18,8 +18,8 @@ There are 2 things that I keep on mind while working:
 
 The KISS patter is very clear, but I believe the Pareto principle deserves more details:
 
-I believe that if you added redux in 10 projects, you may added it 8 times just to solve 1 issue: "Keep a couple of vars on sync between components", and also 2 times that you solves tons of issues that it absolutelly worth it.
-But, what about those 8 times that you added Redux only to keep 1 var on sync? You only needed a global state var and a callback, but you added Redux.
+I believe that if you added a State Manager in 10 projects, you may added it 8 times just to solve 1 issue: "Keep a couple of vars on sync between components", and also 2 times that you solves tons of issues that it absolutelly worth it.
+But, what about those 8 times that you added, let's say, Redux, only to keep 1 var on sync? You only needed a global state var and a callback, but you added Redux (complexity, a lot of complexity my friend).
 
 The idea of `duix` is to cover those 8 times that you added Redux only because you needed to keep on sync vars between components. Just that. There is a global `state` object, that you `set` values, or `get` values, and you can `subscribe` or `unsubscribe`, and every time someone `set` a new value, all the subscribers are gonna be called receiving the new and the old value.
 
