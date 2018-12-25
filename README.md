@@ -6,12 +6,14 @@ With examples. People need examples!
 
 * `duix.get('user')`: Returns (it's NOT a promise) the `user` value.
 * `duix.set('user', { name: 'Noel' })`: This set the `user` value. it can be ab Object, Array, Null, whatever.
-* `duix.subscribe('user', () => { /* ... */ })`: Subscribe that callback (the second parameter) to every change made in `user`. That function is gonna be called every time `duix.set('user', whatever)` is called. This function also returns a function that if you call it, you unsubcribe to the changes (example below).
+* `duix.subscribe('user', (newValue, oldValue) => { /* ... */ })`: Subscribe that callback (the second parameter) to every change made in `user`. That function is gonna be called every time `duix.set('user', whatever)` is called. This function also returns a function that if you call it, you unsubcribe to the changes (example below).
 
 Here the unsubscribe example:
 ```js
 // Subscribe
-const goodBye = duix.subscribe('user', () => { /* ... */ }));
+const goodBye = duix.subscribe('user', (newValue, oldValue) => {
+  /* ... */
+}));
 
 // Ubsubscribe
 goodBye();
