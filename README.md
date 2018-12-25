@@ -2,8 +2,8 @@
 First of all: Why is it called "DUIX"? The `x` at the end is obvious: Becase it's a state manager. If you make your own state manager and you don't call it with a `x` at the end, please, don't do a state manager. On another hand the `dui` means: `DON'T USE IT`. So, you are already warned.
 
 
-## Why don't you use it?
-Because if you saw (if not, you should) all the courses, tweets, videos and blogs from our almighty frontend-god (Dan (@dan_abramov)), and all the frontend community, you should already learned that EVERYTHING SHOULD BE DECLARATIVE. And this, my friend, is not declarative at all (and I hope to keep it as it is).
+## Why "don't use it"?
+Because if you saw (if not, you should) all the courses, tweets, videos and blogs from our almighty frontend community, you should already learned that EVERYTHING SHOULD BE DECLARATIVE. And this, my friend, is not declarative at all (and I hope to keep it as it is).
 
 So...
 
