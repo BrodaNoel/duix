@@ -15,7 +15,7 @@ const goodBye = duix.subscribe('user', (newValue, oldValue) => {
   /* ... */
 }));
 
-// Ubsubscribe
+// Unsubscribe
 goodBye();
 ```
 
