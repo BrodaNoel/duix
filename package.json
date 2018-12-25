@@ -1,12 +1,12 @@
 {
   "name": "duix",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Broda Noel",
     "email": "brodanoel@gmail.com"
   },
-  "description": "Just a simple store manager",
-  "keywords": [ "store", "manager", "x", "kiss", "callbacks" ],
+  "description": "Just a simple state manager",
+  "keywords": [ "state", "manager", "x", "kiss", "callbacks" ],
   "main": "build.js",
   "repository": {
     "type" : "git",
