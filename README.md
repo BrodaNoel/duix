@@ -85,7 +85,7 @@ class Viewer extends Component {
 So, could you understand what happened there? Only 3 things on `duix`:
 1. Someone needs to set the default value
 2. Someone is gonna get the initial value, and also `subscribe` to the any change
-4. Someone is gonna `set` the new value every time it changes
+4. Someone is gonna `set` the new value every time it have to be changed.
 
 ## The Login Example
 1. The main file in the app define the initial value for the `user` object.
