@@ -89,7 +89,7 @@ So, could you understand what happened there? Only 3 things on `duix`:
 
 ## The Login Example
 1. The main file in the app define the initial value for the `user` object.
-2. The `Header` component is subscribed to the changes of `user`.
+2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is defined, the user is logged).
 3. The `Login` component is gonna call a funcion that is gonna made the API call to check if the user is logged.
 4. The `LogOut` component is gonna logout the user. :shrug:
 
