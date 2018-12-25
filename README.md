@@ -1,6 +1,22 @@
 # DUIX
 First of all: Why is it called "DUIX"? The `x` at the end is obvious: Becase it's a state manager. If you make your own state manager and you don't call it with an `x` at the end, please, don't do a state manager. On another hand the `dui` means: `DON'T USE IT`. So, you are already warned.
 
+# API doc
+With examples. People need examples!
+
+* `duix.get('user')`: Returns (it's NOT a promise) the `user` value.
+* `duix.set('user', { name: 'Noel' })`: This set the `user` value. it can be ab Object, Array, Null, whatever.
+* `duix.subscribe('user', () => { /* ... */ })`: Subscribe that callback (the second parameter) to every change made in `user`. That function is gonna be called every time `duix.set('user', whatever)` is called. This function also returns a function that if you call it, you unsubcribe to the changes (example below).
+
+Here the unsubscribe example:
+```js
+// Subscribe
+const goodBye = duix.subscribe('user', () => { /* ... */ }));
+
+// Ubsubscribe
+goodBye();
+```
+
 
 ## Why "don't use it"?
 Because if you saw (if not, you should) all the courses, tweets, videos and blogs from our almighty frontend community, you should already learned that EVERYTHING SHOULD BE DECLARATIVE. And this, my friend, is not declarative at all (and I hope to keep it as it is).
