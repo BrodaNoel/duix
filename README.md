@@ -8,7 +8,7 @@ Because if you saw (if not, you should) all the courses, tweets, videos and blog
 So...
 
 ## Why was it created?
-Because some ~most~ of `*x` add unnecessary complexity.
+Because some ~most~ of the current State Managers libs add too unnecessary complexity (even in the learning curve, or arch, or high coupling between components).
 
 The idea of `duix` is to reuse some old knowledge to solve only one simple problem: Keep 2 components on sync.
 
