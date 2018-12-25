@@ -99,7 +99,7 @@ class Viewer extends Component {
 
 So, could you understand what happened there? Only 3 things on `duix`:
 1. Someone needs to set the default value
-2. Someone is gonna get the initial value, and also `subscribe` to the any change
+2. Someone is gonna get the initial value, and also `subscribe` to any change
 4. Someone is gonna `set` the new value every time it have to be changed.
 
 ## The Login Example
