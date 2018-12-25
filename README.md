@@ -115,7 +115,7 @@ import { loginWithCredentials } from 'actions';
 
 class Login extends Component {
   handleLogin = (email, password) => {
-    // Here we are NOT gonna change the `user` value.
+    // The `Login` component is not gonna change the `user` object. Instead, the `loginWithCredentials` is gonna do it.
     loginWithCredentials(email, password);
   };
 
