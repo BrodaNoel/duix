@@ -75,7 +75,7 @@ class Viewer extends Component {
   render() {
     return (
       <div className="Viewer">
-        { `${this.state.githubStars} stars` }
+        {this.state.githubStars} stars
       </div>
     );
   }
