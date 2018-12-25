@@ -216,6 +216,4 @@ So, could you understand what happened there? Only 3 things on `duix`:
 
 "That's all, folks"
 
-PS.: Please, don't add Github starts. That's a terrible feature that I hope to never see again in 2019.
-
-PPS.: 10 minutes ago it was Christmas. This is my gif for te community.
+PS: 10 minutes ago it was Christmas. This is my gif for te community.
