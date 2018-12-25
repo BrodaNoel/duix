@@ -1,5 +1,5 @@
 # DUIX
-First of all: Why is it called "DUIX"? The `x` at the end is obvious: Becase it's a state manager. If you make your own state manager and you don't call it with a `x` at the end, please, don't do a state manager. On another hand the `dui` means: `DON'T USE IT`. So, you are already warned.
+First of all: Why is it called "DUIX"? The `x` at the end is obvious: Becase it's a state manager. If you make your own state manager and you don't call it with an `x` at the end, please, don't do a state manager. On another hand the `dui` means: `DON'T USE IT`. So, you are already warned.
 
 
 ## Why "don't use it"?
