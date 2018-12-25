@@ -38,12 +38,12 @@ import duix from 'duix';
 class Buttons extends Component {
   handleAdd = () => {
     const currentValue = duix.get('githubStars');
-    duix.set('counter', currentValue + 1);
+    duix.set('githubStars', currentValue + 1);
   };
 
   handleSubtract = () => {
     const currentValue = duix.get('githubStars');
-    duix.set('counter', currentValue - 1);
+    duix.set('githubStars', currentValue - 1);
   };
 
   // ...
