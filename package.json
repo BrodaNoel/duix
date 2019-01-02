@@ -1,6 +1,6 @@
 {
   "name": "duix",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Broda Noel",
     "email": "brodanoel@gmail.com"
@@ -8,6 +8,7 @@
   "description": "Just a simple state manager",
   "keywords": [ "state", "manager", "x", "kiss", "callbacks" ],
   "main": "build.js",
+  "license": "MIT",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/BrodaNoel/duix"
