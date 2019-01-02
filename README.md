@@ -13,7 +13,7 @@ Here the unsubscribe example:
 // Subscribe
 const goodBye = duix.subscribe('user', (newValue, oldValue) => {
   /* ... */
-}));
+});
 
 // Unsubscribe
 goodBye();
