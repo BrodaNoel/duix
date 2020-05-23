@@ -1,4 +1,3 @@
 .npmignore
-index.js
 .editorconfig
 *.code-workspace
