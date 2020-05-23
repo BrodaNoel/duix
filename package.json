@@ -19,7 +19,12 @@
     "type": "git",
     "url": "https://github.com/BrodaNoel/duix"
   },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "jasmine": "^3.5.0"
+  },
   "scripts": {
-    "build": "rollup index.js --file build.js --format umd --name \"duix\""
+    "build": "rollup index.js --file build.js --format umd --name \"duix\"",
+    "test": "jasmine --require=esm --config=tests/jasmine.json"
   }
 }
