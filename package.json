@@ -5,14 +5,25 @@
     "name": "Broda Noel",
     "email": "brodanoel@gmail.com"
   },
-  "description": "Just a simple store manager",
-  "keywords": [ "store", "manager", "x", "kiss", "callbacks" ],
+  "description": "Just a simple state manager",
+  "keywords": [
+    "state",
+    "manager",
+    "x",
+    "kiss",
+    "callbacks"
+  ],
   "main": "build.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/BrodaNoel/duix"
+    "type": "git",
+    "url": "https://github.com/BrodaNoel/duix"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "jasmine": "^3.5.0"
   },
   "scripts": {
-    "build": "rollup index.js --file build.js --format umd --name \"duix\""
+    "build": "rollup index.js --file build.js --format umd --name \"duix\"",
+    "test": "jasmine --require=esm --config=tests/jasmine.json"
   }
 }
