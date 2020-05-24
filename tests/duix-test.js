@@ -13,6 +13,19 @@ describe("duix", function () {
     expect(duix.get(k1)).toBe('123');
   });
 
+  it('should handle special values', function () {
+    duix.set(k2);
+    expect(duix.get(k2)).toBeUndefined();
+
+    duix.set(k2, false);
+    expect(duix.get(k2)).toBeFalse();
+
+    duix.set(k2, 0);
+    expect(duix.get(k2)).toBe(0);
+
+    expect(duix.get('anything_else')).toBeUndefined();
+  })
+
   it('should send the value on the callback when setting it', function () {
     let res = false;
     let unsubscribe = duix.subscribe(k1, (val) => {
@@ -42,6 +55,26 @@ describe("duix", function () {
     done();
   });
 
+  it('should unsubscribe but keep the others', function (done) {
+    let res = 0;
+    let unsubscribe = duix.subscribe(k1, (val) => {
+      res += 10;
+    })
+
+    let unsubscribe2 = duix.subscribe(k1, (val) => {
+      done.fail("callback has been called while unsubscribed");
+    })
+
+    let unsubscribe3 = duix.subscribe(k1, (val) => {
+      res += 300;
+    })
+
+    unsubscribe2();
+    duix.set(k1, '456');
+    expect(res).toBe(310);
+    done();
+  });
+
   describe('with multiple keys', function () {
     it('get/set', function () {
       duix.set(k1, '123');
@@ -61,6 +94,22 @@ describe("duix", function () {
       }, { callMeNow: true });
       expect(res).toBeTruthy();
       unsubscribe();
-    })
+    });
+  });
+
+  describe('with onChange', function () {
+    it("with numbers", function () {
+      let res = 0;
+      let unsubscribe = duix.subscribe(k1, (val) => {
+        res++;
+      }, {
+        onlyOnChange: true
+      })
+      duix.set(k1, 123);
+      duix.set(k1, 123);
+      duix.set(k1, 123);
+      expect(res).toBe(1);
+      unsubscribe();
+    });
   });
 });

@@ -11,26 +11,50 @@
 let store = {};
 
 const _callsubscribers = (key, newValue, prevValue) => {
-  store[key].subscribers.forEach(callback => {
-    if (typeof callback === 'function') {
-      callback(newValue, prevValue);
+  store[key].subscribers.forEach(config => {
+    if (!config.options.onlyOnChange || !deepEqual(newValue, prevValue)) {
+      config.callback(newValue, prevValue);
     }
   });
 };
 
+// Thanks to https://stackoverflow.com/a/25456134/1954789
+function deepEqual(x, y) {
+  if (x === y) {
+    return true;
+  } else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+    if (Object.keys(x).length != Object.keys(y).length)
+      return false;
+
+    for (var prop in x) {
+      if (y.hasOwnProperty(prop)) {
+        if (!deepEqual(x[prop], y[prop]))
+          return false;
+      }
+      else {
+        return false;
+      }
+    }
+
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export default {
-  set (key, value) {
-    let currentValue = undefined;
+  set(key, newValue) {
+    let prevValue = undefined;
 
     if (!store[key]) {
-      store[key] = { value, subscribers: [] };
+      store[key] = { value: newValue, subscribers: [] };
     } else {
-      currentValue = store[key].value;
-      store[key].value = value;
+      prevValue = store[key].value;
+      store[key].value = newValue;
     }
 
     // TODO: Call callback only if the value really changed
-    _callsubscribers(key, value, currentValue);
+    _callsubscribers(key, newValue, prevValue);
   },
 
   get(key) {
@@ -40,14 +64,25 @@ export default {
   subscribe(key, callback, options = {}) {
     let index = 1;
 
+    if (typeof callback !== 'function') {
+      console.error(`Registering in duix for '${key}': Callback is not a function: `, callback);
+    }
+
+    // Set the default options
+    options = {
+      onlyOnChange: false,
+      callMeNow: false,
+      ...options
+    };
+
     if (!store[key]) {
-      store[key] = { value: undefined, subscribers: [ callback ] };
+      store[key] = { value: undefined, subscribers: [{ callback, options }] };
     } else {
-      index = store[key].subscribers.push(callback);
+      index = store[key].subscribers.push({ callback, options });
     }
 
     if (options.callMeNow) {
-      callback(this.get(key));
+      callback(this.get(key), undefined);
     }
 
     // This returns the unsubscribe handler
