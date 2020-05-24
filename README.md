@@ -23,6 +23,8 @@ const goodBye = duix.subscribe('user', (newValue, oldValue) => {
 goodBye();
 ```
 
+See below for some advanced usages.
+
 ## The Counter Example
 1. `Buttons` component is gonna add or subtract.
 2. `Viewer` component is gonna show the value
@@ -205,6 +207,21 @@ So, could you understand what happened there? Only 3 things on `duix`:
 1. Someone needs to set the default value
 2. Someone is gonna `subscribe` to a value change, or unsubscribe when component unmount.
 3. Someone is gonna `set` the new value every time it changes
+
+## Advanced options/usages
+
+When subscribing to a value, you can choose special behaviors by passing an object as third parameter:
+
+```lang=javascript
+duix.subscribe(key, callback, {
+  onlyOnChange: false
+});
+```
+
+option        | default value | comment
+--------------|---------------|----------------------------------------------------
+onlyOnChange  | false         | being notified only when the value is different
+
 
 ## Why was it created?
 Because some ~most~ of the current State Managers libs add too unnecessary complexity (even in the learning curve, or arch, or high coupling between components).
