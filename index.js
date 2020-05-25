@@ -19,7 +19,7 @@ export function deepEqual(x, y) {
     return true;
   }
 
-  if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+  if ((typeof x === "object" && x !== null) && (typeof y === "object" && y !== null)) {
     if (Object.keys(x).length != Object.keys(y).length) {
       return false;
     }
@@ -44,16 +44,18 @@ export default {
     let prevValue = undefined;
 
     if (!store[key]) {
+      // New key, let's create it and that's all.
       store[key] = { value: newValue, subscribers: [] };
-    } else {
-      prevValue = store[key].value;
-      if (deepEqual(newValue, prevValue)) {
-        // If we have a previous value, and if it is the same,
-        // then we don't notify
-        return;
-      }
-      store[key].value = newValue;
+      return;
     }
+
+    prevValue = store[key].value;
+    if (deepEqual(newValue, prevValue)) {
+      // If we have a previous value, and if it is the same,
+      // then we don't notify
+      return;
+    }
+    store[key].value = newValue;
 
     store[key].subscribers.forEach(callback => callback(newValue, prevValue));
   },
