@@ -53,7 +53,6 @@ export default {
       store[key].value = newValue;
     }
 
-    // TODO: Call callback only if the value really changed
     _callsubscribers(key, newValue, prevValue);
   },
 
