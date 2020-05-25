@@ -73,7 +73,7 @@ export default {
 
     // Set the default options
     options = {
-      callMeNow: false,
+      fireImmediately: false,
       ...options
     };
 
@@ -82,7 +82,7 @@ export default {
     }
     index = store[key].subscribers.push(callback);
 
-    if (options.callMeNow) {
+    if (options.fireImmediately) {
       callback(this.get(key), undefined);
     }
 
