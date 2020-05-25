@@ -214,13 +214,13 @@ When subscribing to a value, you can choose special behaviors by passing an obje
 
 ```lang=javascript
 duix.subscribe(key, callback, {
-  // Options to come
+  fireImmediately: false
 });
 ```
 
-option        | default value | comment
---------------|---------------|----------------------------------------------------
-TBD           |
+option           | default value | comment
+-----------------|---------------|-----------------------------------------------------------------------
+fireImmediately  | false         | Should duix callback immediately with the value currently in memory?
 
 
 ## Why was it created?

@@ -92,7 +92,7 @@ describe("duix", function () {
     });
   });
 
-  describe('with option callMeNow', function () {
+  describe('with option fireImmediately', function () {
     it('should send the stored value', function () {
       const k = 'k' + ki++;
       let res = false;
@@ -100,7 +100,7 @@ describe("duix", function () {
       let unsubscribe = duix.subscribe(k, (val) => {
         expect(val).toBe('123');
         res = true;
-      }, { callMeNow: true });
+      }, { fireImmediately: true });
       expect(res).toBeTruthy();
       unsubscribe();
     });
