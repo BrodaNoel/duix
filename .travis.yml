@@ -1,0 +1,12 @@
+os: linux
+dist: bionic
+
+language: node_js
+node_js:
+  - "14"
+
+install:
+  - npm ci
+
+script:
+  - npm run test

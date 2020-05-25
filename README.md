@@ -214,13 +214,13 @@ When subscribing to a value, you can choose special behaviors by passing an obje
 
 ```lang=javascript
 duix.subscribe(key, callback, {
-  onlyOnChange: false
+  // Options to come
 });
 ```
 
 option        | default value | comment
 --------------|---------------|----------------------------------------------------
-onlyOnChange  | false         | being notified only when the value is different
+TBD           |
 
 
 ## Why was it created?

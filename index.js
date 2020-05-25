@@ -10,36 +10,33 @@
  */
 let store = {};
 
-const _callsubscribers = (key, newValue, prevValue) => {
-  store[key].subscribers.forEach(config => {
-    if (!config.options.onlyOnChange || !deepEqual(newValue, prevValue)) {
-      config.callback(newValue, prevValue);
-    }
-  });
-};
-
 // Thanks to https://stackoverflow.com/a/25456134/1954789
-function deepEqual(x, y) {
+export function deepEqual(x, y) {
+  // TODO: this will not handle cyclical references !
+  // TODO: this does not check class name !
+
   if (x === y) {
     return true;
-  } else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
-    if (Object.keys(x).length != Object.keys(y).length)
-      return false;
+  }
 
-    for (var prop in x) {
-      if (y.hasOwnProperty(prop)) {
-        if (!deepEqual(x[prop], y[prop]))
-          return false;
+  if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+    if (Object.keys(x).length != Object.keys(y).length) {
+      return false;
+    }
+
+    for (const prop in x) {
+      if (!y.hasOwnProperty(prop)) {
+        return false;
       }
-      else {
+      if (!deepEqual(x[prop], y[prop])) {
         return false;
       }
     }
 
     return true;
-  } else {
-    return false;
   }
+
+  return false;
 }
 
 export default {
@@ -50,10 +47,15 @@ export default {
       store[key] = { value: newValue, subscribers: [] };
     } else {
       prevValue = store[key].value;
+      if (deepEqual(newValue, prevValue)) {
+        // If we have a previous value, and if it is the same,
+        // then we don't notify
+        return;
+      }
       store[key].value = newValue;
     }
 
-    _callsubscribers(key, newValue, prevValue);
+    store[key].subscribers.forEach(callback => callback(newValue, prevValue));
   },
 
   get(key) {
@@ -69,16 +71,14 @@ export default {
 
     // Set the default options
     options = {
-      onlyOnChange: false,
       callMeNow: false,
       ...options
     };
 
     if (!store[key]) {
-      store[key] = { value: undefined, subscribers: [{ callback, options }] };
-    } else {
-      index = store[key].subscribers.push({ callback, options });
+      store[key] = { value: undefined, subscribers: [] };
     }
+    index = store[key].subscribers.push(callback);
 
     if (options.callMeNow) {
       callback(this.get(key), undefined);
