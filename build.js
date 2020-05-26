@@ -1,8 +1,9 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.duix = {}));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = global || self, global.duix = factory());
+}(this, function () {
+  'use strict';
 
   /**
    * {
@@ -16,54 +17,27 @@
    */
   let store = {};
 
-  // Thanks to https://stackoverflow.com/a/25456134/1954789
-  function deepEqual(x, y) {
-    // TODO: this will not handle cyclical references !
-    // TODO: this does not check class name !
-
-    if (x === y) {
-      return true;
-    }
-
-    if ((typeof x === "object" && x !== null) && (typeof y === "object" && y !== null)) {
-      if (Object.keys(x).length != Object.keys(y).length) {
-        return false;
+  const _callsubscribers = (key, newValue, prevValue) => {
+    store[key].subscribers.forEach(callback => {
+      if (typeof callback === 'function') {
+        callback(newValue, prevValue);
       }
-
-      for (const prop in x) {
-        if (!y.hasOwnProperty(prop)) {
-          return false;
-        }
-        if (!deepEqual(x[prop], y[prop])) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-
-    return false;
-  }
+    });
+  };
 
   var index = {
-    set(key, newValue) {
-      let prevValue = undefined;
+    set(key, value) {
+      let currentValue = undefined;
 
       if (!store[key]) {
-        // New key, let's create it and that's all.
-        store[key] = { value: newValue, subscribers: [] };
-        return;
+        store[key] = { value, subscribers: [] };
+      } else {
+        currentValue = store[key].value;
+        store[key].value = value;
       }
 
-      prevValue = store[key].value;
-      if (deepEqual(newValue, prevValue)) {
-        // If we have a previous value, and if it is the same,
-        // then we don't notify
-        return;
-      }
-      store[key].value = newValue;
-
-      store[key].subscribers.forEach(callback => callback(newValue, prevValue));
+      // TODO: Call callback only if the value really changed
+      _callsubscribers(key, value, currentValue);
     },
 
     get(key) {
@@ -73,23 +47,14 @@
     subscribe(key, callback, options = {}) {
       let index = 1;
 
-      if (typeof callback !== 'function') {
-        console.error(`Registering in duix for '${key}': Callback is not a function: `, callback);
-      }
-
-      // Set the default options
-      options = {
-        fireImmediately: false,
-        ...options
-      };
-
       if (!store[key]) {
-        store[key] = { value: undefined, subscribers: [] };
+        store[key] = { value: undefined, subscribers: [callback] };
+      } else {
+        index = store[key].subscribers.push(callback);
       }
-      index = store[key].subscribers.push(callback);
 
-      if (options.fireImmediately) {
-        callback(this.get(key), undefined);
+      if (options.callMeNow) {
+        callback(this.get(key));
       }
 
       // This returns the unsubscribe handler
@@ -99,9 +64,6 @@
     }
   };
 
-  exports.deepEqual = deepEqual;
-  exports.default = index;
+  return index;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
+}));
