@@ -1,7 +1,6 @@
+import deepEqual from '../utils/deepEqual';
 
-import { deepEqual } from '../index.js'
-
-describe("deepEqual", function () {
+describe('deepEqual', function () {
   it('should compare numbers', function () {
     expect(deepEqual(1, 1)).toBeTrue();
 
@@ -10,12 +9,12 @@ describe("deepEqual", function () {
   });
 
   it('should compare strings', function () {
-    expect(deepEqual("", "")).toBeTrue();
-    expect(deepEqual("a1", "a1")).toBeTrue();
+    expect(deepEqual('', '')).toBeTrue();
+    expect(deepEqual('a1', 'a1')).toBeTrue();
 
-    expect(deepEqual("a1", "")).toBeFalse();
-    expect(deepEqual("a1", "a2")).toBeFalse();
-    expect(deepEqual("1", 1)).toBeFalse();
+    expect(deepEqual('a1', '')).toBeFalse();
+    expect(deepEqual('a1', 'a2')).toBeFalse();
+    expect(deepEqual('1', 1)).toBeFalse();
   });
 
   it('should compare objects', function () {
@@ -23,8 +22,8 @@ describe("deepEqual", function () {
       a: 1,
       b: 2,
       c: {
-        d: 1
-      }
+        d: 1,
+      },
     };
     let o2;
 
@@ -49,10 +48,9 @@ describe("deepEqual", function () {
     o2 = JSON.parse(JSON.stringify(o1));
     delete o2.c.d;
     expect(deepEqual(o1, o2)).toBeFalse();
-
   });
 
-  it('should compare array\'s', function () {
+  it("should compare array's", function () {
     const a1 = [1, 2, 3];
     let a2 = [];
 
