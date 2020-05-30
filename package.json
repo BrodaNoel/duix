@@ -22,7 +22,8 @@
   "devDependencies": {
     "eslint": "^7.1.0",
     "esm": "^3.2.25",
-    "jasmine": "^3.5.0"
+    "jasmine": "^3.5.0",
+    "rollup": "^2.10.9"
   },
   "scripts": {
     "build": "rollup index.js --file build.js --format umd --name \"duix\"",

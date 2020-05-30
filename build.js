@@ -1,8 +1,9 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.duix = factory());
-}(this, function () { 'use strict';
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = global || self, global.duix = factory());
+}(this, function () {
+  'use strict';
 
   /**
    * {
@@ -25,7 +26,7 @@
   };
 
   var index = {
-    set (key, value) {
+    set(key, value) {
       let currentValue = undefined;
 
       if (!store[key]) {
@@ -47,7 +48,7 @@
       let index = 1;
 
       if (!store[key]) {
-        store[key] = { value: undefined, subscribers: [ callback ] };
+        store[key] = { value: undefined, subscribers: [callback] };
       } else {
         index = store[key].subscribers.push(callback);
       }
