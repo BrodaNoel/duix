@@ -1,5 +1,5 @@
 // Thanks to https://stackoverflow.com/a/25456134/1954789
-export default (x, y) => {
+const deepEqual = (x, y) => {
   // TODO: this will not handle cyclical references !
   // TODO: this does not check class name !
 
@@ -26,3 +26,5 @@ export default (x, y) => {
 
   return false;
 };
+
+export default deepEqual;
