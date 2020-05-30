@@ -4,3 +4,5 @@
 .prettierrc
 .vscode
 .nvmrc
+.github
+.travis.yml
