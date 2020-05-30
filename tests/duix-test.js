@@ -1,9 +1,8 @@
-
-import duix from '../index.js'
+import duix from '../index.js';
 
 let ki = 0;
 
-describe("duix", function () {
+describe('duix', function () {
   it('should get the sent value, anytime we ask for it', function () {
     const k = 'k' + ki++;
     duix.set(k, '123');
@@ -25,15 +24,15 @@ describe("duix", function () {
     expect(duix.get(k)).toBe(0);
 
     expect(duix.get(k + 'anything_else')).toBeUndefined();
-  })
+  });
 
   it('should send the value on the callback when setting it', function () {
     const k = 'k' + ki++;
     let res = false;
-    let unsubscribe = duix.subscribe(k, (val) => {
+    let unsubscribe = duix.subscribe(k, val => {
       expect(val).toBe('555');
       res = true;
-    })
+    });
     duix.set(k, '555');
     expect(res).toBeTruthy();
     unsubscribe();
@@ -42,18 +41,18 @@ describe("duix", function () {
   it('should not call the callback if the value is set before', function (done) {
     const k = 'k' + ki++;
     duix.set(k, '123');
-    let unsubscribe = duix.subscribe(k, (val) => {
-      done.fail("callback has been called while registered after");
-    })
+    let unsubscribe = duix.subscribe(k, val => {
+      done.fail('callback has been called while registered after');
+    });
     unsubscribe();
     done();
   });
 
   it('should unsubscribe', function (done) {
     const k = 'k' + ki++;
-    let unsubscribe = duix.subscribe(k, (val) => {
-      done.fail("callback has been called while unsubscribed");
-    })
+    let unsubscribe = duix.subscribe(k, val => {
+      done.fail('callback has been called while unsubscribed');
+    });
     unsubscribe();
     duix.set(k, '456');
     done();
@@ -62,17 +61,17 @@ describe("duix", function () {
   it('should unsubscribe but keep the others', function (done) {
     const k = 'k' + ki++;
     let res = 0;
-    let unsubscribe = duix.subscribe(k, (val) => {
+    let unsubscribe = duix.subscribe(k, val => {
       res += 10;
-    })
+    });
 
-    let unsubscribe2 = duix.subscribe(k, (val) => {
-      done.fail("callback has been called while unsubscribed");
-    })
+    let unsubscribe2 = duix.subscribe(k, val => {
+      done.fail('callback has been called while unsubscribed');
+    });
 
-    let unsubscribe3 = duix.subscribe(k, (val) => {
+    let unsubscribe3 = duix.subscribe(k, val => {
       res += 300;
-    })
+    });
 
     unsubscribe2();
     duix.set(k, '456');
@@ -97,24 +96,32 @@ describe("duix", function () {
       const k = 'k' + ki++;
       let res = false;
       duix.set(k, '123');
-      let unsubscribe = duix.subscribe(k, (val) => {
-        expect(val).toBe('123');
-        res = true;
-      }, { fireImmediately: true });
+      let unsubscribe = duix.subscribe(
+        k,
+        val => {
+          expect(val).toBe('123');
+          res = true;
+        },
+        { fireImmediately: true }
+      );
       expect(res).toBeTruthy();
       unsubscribe();
     });
   });
 
   describe('with onChange', function () {
-    it("with numbers", function () {
+    it('with numbers', function () {
       const k = 'k' + ki++;
       let res = 0;
-      let unsubscribe = duix.subscribe(k, (val) => {
-        res++;
-      }, {
-        onlyOnChange: true
-      })
+      let unsubscribe = duix.subscribe(
+        k,
+        val => {
+          res++;
+        },
+        {
+          onlyOnChange: true,
+        }
+      );
       duix.set(k, 123);
       duix.set(k, 123);
       duix.set(k, 123);
