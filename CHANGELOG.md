@@ -1,3 +1,7 @@
+### 2.0.1
+
+- Remove unnecessary files from npm package
+
 ### 2.0.0
 
 - BREAKING: Replaced `callMeNow` for `fireImmediately`
