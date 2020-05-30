@@ -1,6 +1,6 @@
 ### 2.0.0
 
-- Replaced `callMeNow` for `fireImmediately`
+- BREAKING: Replaced `callMeNow` for `fireImmediately`
 - Now we only call the subscriber when the value actually changed
 
 ### 1.1.0
