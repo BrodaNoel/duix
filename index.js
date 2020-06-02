@@ -1,4 +1,4 @@
-import deepEqual from './utils/deepEqual';
+import deepEqual from './utils/deepEqual.js';
 
 let store = {};
 /**
