@@ -83,9 +83,9 @@
     /**
      *
      * @param {*} key - the key of the data
-     * @param {function(any):void} callback - called when the data chagne
+     * @param {function(any, any):void} callback - called when the data chagne
      * @param {object} options
-     * @param {boolean} options.fireImmediately[false] - if true, the callback is immediately fired with the last stored value
+     * @param {boolean} [options.fireImmediately=false] - if true, the callback is immediately fired with the last stored value
      * @returns {function(void):void} - Unregister the listener
      */
     subscribe(key, callback, options = {}) {
