@@ -1,4 +1,12 @@
-// Thanks to https://stackoverflow.com/a/25456134/1954789
+/**
+ * Compare two elements and return true if they are 'equivalent'
+ *
+ * @param {*} - first element
+ * @param {*} - second element
+ * @returns {boolean} - true if objects are equivalents
+ *
+ * @see https://stackoverflow.com/a/25456134/1954789
+ */
 const deepEqual = (x, y) => {
   // TODO: this will not handle cyclical references !
   // TODO: this does not check class name !

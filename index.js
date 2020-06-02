@@ -1,18 +1,16 @@
-import deepEqual from './utils/deepEqual';
+import deepEqual from './utils/deepEqual.js';
 
-/**
- * {
- *  user: {
- *    value: { id: 123, name: 'Noel' },
- *    subscribers: [
- *      () => {} // The callback function
- *    ]
- *  }
- * }
- */
 let store = {};
-
+/**
+ * Manage a variable accross multiple files
+ * The data is associated to a "key" (can be anything)
+ */
 export default {
+  /**
+   * Store data into the storage
+   * @param {*} key: the key under wich the value will be stored
+   * @param {*} newValue: the associated data
+   */
   set(key, newValue) {
     let prevValue = undefined;
 
@@ -33,10 +31,22 @@ export default {
     store[key].subscribers.forEach(callback => callback(newValue, prevValue));
   },
 
+  /**
+   * Return the data associated to the key
+   * @param {*} key
+   */
   get(key) {
     return !store[key] ? undefined : store[key].value;
   },
 
+  /**
+   *
+   * @param {*} key - the key of the data
+   * @param {function(any, any):void} callback - called when the data chagne
+   * @param {object} options
+   * @param {boolean} [options.fireImmediately=false] - if true, the callback is immediately fired with the last stored value
+   * @returns {function(void):void} - Unregister the listener
+   */
   subscribe(key, callback, options = {}) {
     let index = 1;
 

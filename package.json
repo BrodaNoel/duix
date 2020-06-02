@@ -23,11 +23,15 @@
     "eslint": "^7.1.0",
     "esm": "^3.2.25",
     "jasmine": "^3.5.0",
-    "rollup": "^2.11.2"
+    "rollup": "^2.11.2",
+    "typescript": "^3.9.3"
   },
   "scripts": {
-    "build": "rollup index.js --file build.js --format umd --name \"duix\"",
+    "build": "npm run rollup && npm run tsc",
+    "rollup": "rollup index.js --file build.js --format umd --name \"duix\"",
+    "tsc": "tsc --allowJS --checkJS --declaration --emitDeclarationOnly index.js",
+    "tsc-check": "tsc --allowJS --checkJS --noEmit index.js",
     "test": "jasmine --require=esm --config=tests/jasmine.json",
-    "lint": "eslint"
+    "lint": "eslint && npm run tsc-check"
   }
 }
