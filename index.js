@@ -14,23 +14,22 @@ export default {
    */
   set(key, newValue) {
     let prevValue = undefined;
-    const clonedNewValue = clone(newValue);
 
     if (!store[key]) {
       // New key, let's create it and that's all.
-      store[key] = { value: clonedNewValue, subscribers: [] };
+      store[key] = { value: clone(newValue), subscribers: [] };
       return;
     }
 
     prevValue = store[key].value;
-    if (deepEqual(clonedNewValue, prevValue)) {
+    if (deepEqual(newValue, prevValue)) {
       // If we have a previous value, and if it is the same,
       // then we don't notify
       return;
     }
-    store[key].value = clonedNewValue;
+    store[key].value = clone(newValue);
 
-    store[key].subscribers.forEach(callback => callback(clonedNewValue, prevValue));
+    store[key].subscribers.forEach(callback => callback(clone(newValue), clone(prevValue)));
   },
 
   /**
