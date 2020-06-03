@@ -1,3 +1,8 @@
+### master (3.0.0)
+
+- Clone the object received on `set`
+- Clone the object sent to `subscribers` on change event
+
 ### 2.0.2
 
 - Fix `import` on `index.js`
