@@ -1,3 +1,7 @@
+### 2.0.2
+
+- Fix `import` on `index.js`
+
 ### 2.0.1
 
 - Remove unnecessary files from npm package
