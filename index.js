@@ -1,4 +1,5 @@
 import deepEqual from './utils/deepEqual.js';
+import clone from './utils/clone.js';
 
 let store = {};
 /**
@@ -13,22 +14,23 @@ export default {
    */
   set(key, newValue) {
     let prevValue = undefined;
+    const clonedNewValue = clone(newValue);
 
     if (!store[key]) {
       // New key, let's create it and that's all.
-      store[key] = { value: newValue, subscribers: [] };
+      store[key] = { value: clonedNewValue, subscribers: [] };
       return;
     }
 
     prevValue = store[key].value;
-    if (deepEqual(newValue, prevValue)) {
+    if (deepEqual(clonedNewValue, prevValue)) {
       // If we have a previous value, and if it is the same,
       // then we don't notify
       return;
     }
-    store[key].value = newValue;
+    store[key].value = clonedNewValue;
 
-    store[key].subscribers.forEach(callback => callback(newValue, prevValue));
+    store[key].subscribers.forEach(callback => callback(clonedNewValue, prevValue));
   },
 
   /**
@@ -36,7 +38,7 @@ export default {
    * @param {*} key
    */
   get(key) {
-    return !store[key] ? undefined : store[key].value;
+    return store[key] ? clone(store[key].value) : undefined;
   },
 
   /**
