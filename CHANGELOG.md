@@ -1,7 +1,7 @@
-### master (3.0.0)
+### 3.0.0
 
-- Clone the object received on `set`
-- Clone the object sent to `subscribers` on change event
+- Clone the object received on `set` (immutable)
+- Clone the object sent to `subscribers` on change event (immutable)
 
 ### 2.0.2
 

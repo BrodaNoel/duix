@@ -41,6 +41,53 @@
     return false;
   };
 
+  /**
+   * Clone
+   *
+   * @param {*} - element to be cloned
+   * @returns {*} - cloned element
+   *
+   * @todo It'll work adequately as long as the data in the
+   * objects and arrays form a tree structure. That is, there
+   * isn't more than one reference to the same data in the
+   * object.
+   *
+   * @see https://stackoverflow.com/q/728360/1815449
+   */
+  function clone(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || 'object' != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+      copy = new Date();
+      copy.setTime(obj.getTime());
+      return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+      copy = [];
+      for (var i = 0, len = obj.length; i < len; i++) {
+        copy[i] = clone(obj[i]);
+      }
+      return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+      copy = {};
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+      }
+      return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
+  }
+
   let store = {};
   /**
    * Manage a variable accross multiple files
@@ -57,7 +104,7 @@
 
       if (!store[key]) {
         // New key, let's create it and that's all.
-        store[key] = { value: newValue, subscribers: [] };
+        store[key] = { value: clone(newValue), subscribers: [] };
         return;
       }
 
@@ -67,9 +114,9 @@
         // then we don't notify
         return;
       }
-      store[key].value = newValue;
+      store[key].value = clone(newValue);
 
-      store[key].subscribers.forEach(callback => callback(newValue, prevValue));
+      store[key].subscribers.forEach(callback => callback(clone(newValue), clone(prevValue)));
     },
 
     /**
@@ -77,7 +124,7 @@
      * @param {*} key
      */
     get(key) {
-      return !store[key] ? undefined : store[key].value;
+      return store[key] ? clone(store[key].value) : undefined;
     },
 
     /**
