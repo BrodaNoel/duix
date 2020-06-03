@@ -1,31 +1,36 @@
 # DUIX
+
 A Simple library to keep vars on sync between components (or whatever). It's just a matter of callbacks. Use it as you want.
 
 ## The `duix` approach
+
 `duix` just have a state that is just a plain (private) object, and some listeners (publish-subscribers) that are gonna be called every time the subscribed-value change.
-It's just a Publish Subscriber lib + a private object (the state)
+It's just a Publish Subscriber lib + a private object (the state). Duix clone the received object, and send a cloned object to the subscribers, in order to keep the immutability of the store.
 
 # API doc
+
 With examples. People need examples!
 
-* `duix.get('user')`: Returns (it's NOT a promise) the `user` value.
-* `duix.set('user', { name: 'Noel' })`: This set the `user` value. it can be ab Object, Array, Null, whatever.
-* `duix.subscribe('user', (newValue, oldValue) => { /* ... */ })`: Subscribe that callback (the second parameter) to every change made in `user`. That function is gonna be called every time `duix.set('user', whatever)` is called. This function also returns a function that if you call it, you unsubcribe to the changes (example below).
+- `duix.get('user')`: Returns (it's NOT a promise) the `user` value. This value is safe to be mutated. It's not going to mutate the state.
+- `duix.set('user', { name: 'Noel' })`: This set the `user` value. It can be ab Object, Array, null, whatever. You can safely mutate the object after setting it. It's not going to mutate the state.
+- `duix.subscribe('user', (newValue, oldValue) => { /* ... */ })`: Subscribe a callback on every change made in `user`. A change on `user` can be made only by calling `duix.set('user', {\* ... *\})` with a different value that the value is currently on the state. This function also returns a function that if you call it, you unsubcribe to the changes (example below).
 
 Here the unsubscribe example:
+
 ```js
 // Subscribe
-const goodBye = duix.subscribe('user', (newValue, oldValue) => {
+const unsubscriber = duix.subscribe('user', (newValue, oldValue) => {
   /* ... */
 });
 
 // Unsubscribe
-goodBye();
+unsubscriber();
 ```
 
 See below for some advanced usages.
 
 ## The Counter Example
+
 1. `Buttons` component is gonna add or subtract.
 2. `Viewer` component is gonna show the value
 
@@ -67,7 +72,7 @@ import duix from 'duix';
 class Viewer extends Component {
   unsubscribe = [];
   state = {
-    githubStars: duix.get('githubStars') // get initial value
+    githubStars: duix.get('githubStars'), // get initial value
   };
 
   componentDidMount() {
@@ -78,26 +83,24 @@ class Viewer extends Component {
     this.unsubscribe[0]();
   }
 
-  onStarsChange = (githubStars) => {
+  onStarsChange = githubStars => {
     this.setState({ githubStars });
   };
 
   render() {
-    return (
-      <div className="Viewer">
-        {this.state.githubStars} stars
-      </div>
-    );
+    return <div className="Viewer">{this.state.githubStars} stars</div>;
   }
 }
 ```
 
 So, could you understand what happened there? Only 3 things on `duix`:
+
 1. Someone needs to set the default value
 2. Someone is gonna get the initial value, and also `subscribe` to any change
-4. Someone is gonna `set` the new value every time it have to be changed.
+3. Someone is gonna `set` the new value every time it have to be changed.
 
 ## The Login Example
+
 1. The main file in the app defines the initial value for the `user` object.
 2. The `Header` component is subscribed to the changes of `user` (because if the `user` object is not `null`, it's because the user is logged).
 3. The `Login` component is gonna call a function that is gonna do the API call to check if the credentials are OK.
@@ -153,19 +156,20 @@ import duix from 'duix';
 export default {
   loginWithCredentials: (email, password) => {
     fetch(
-      'http://example.com/api/login',
+      'http://example.com/api/login'
       // ...
-    ).then(r => r.json())
-    .then((user) => {
-      /**
-       * Whatever the backend send us, let's set it.
-       *
-       * Let's suppose the backend send `null` if the credentials were wrong,
-       * or the proper `user` object if the credentials were OK.
-       */
-      duix.set('user', user);
-    });
-  }
+    )
+      .then(r => r.json())
+      .then(user => {
+        /**
+         * Whatever the backend send us, let's set it.
+         *
+         * Let's suppose the backend send `null` if the credentials were wrong,
+         * or the proper `user` object if the credentials were OK.
+         */
+        duix.set('user', user);
+      });
+  },
 };
 ```
 
@@ -176,7 +180,7 @@ import duix from 'duix';
 class Header extends Component {
   unsubscribe = [];
   state = {
-    user: null
+    user: null,
   };
 
   componentDidMount() {
@@ -189,21 +193,18 @@ class Header extends Component {
     this.unsubscribe[0]();
   }
 
-  onUserChange = (user) => {
+  onUserChange = user => {
     this.setState({ user });
   };
 
   render() {
-    return (
-      <div className="Header">
-        { this.state.user && `Hello ${this.state.user.name}` }
-      </div>
-    );
+    return <div className="Header">{this.state.user && `Hello ${this.state.user.name}`}</div>;
   }
 }
 ```
 
 So, could you understand what happened there? Only 3 things on `duix`:
+
 1. Someone needs to set the default value
 2. Someone is gonna `subscribe` to a value change, or unsubscribe when component unmount.
 3. Someone is gonna `set` the new value every time it changes
@@ -218,17 +219,18 @@ duix.subscribe(key, callback, {
 });
 ```
 
-option           | default value | comment
------------------|---------------|-----------------------------------------------------------------------
-fireImmediately  | false         | Should duix callback immediately with the value currently in memory?
-
+| option          | default value | comment                                                              |
+| --------------- | ------------- | -------------------------------------------------------------------- |
+| fireImmediately | false         | Should duix callback immediately with the value currently in memory? |
 
 ## Why was it created?
+
 Because some ~most~ of the current State Managers libs add too unnecessary complexity (even in the learning curve, or arch, or high coupling between components).
 
 The idea of `duix` is to reuse some old knowledge to solve only one simple problem: Keep 2 components on sync.
 
 There are 2 things that I keep on mind while working:
+
 1. **KISS principle**: Keep it simple, stupid.
 2. **Pareto's principle**: The 80% and 20%. The 80% of your bugs, are gonna be always the same 2 or 3 issues that you always see in every project.
 

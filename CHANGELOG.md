@@ -1,3 +1,12 @@
+### master (3.0.0)
+
+- Clone the object received on `set`
+- Clone the object sent to `subscribers` on change event
+
+### 2.0.2
+
+- Fix `import` on `index.js`
+
 ### 2.0.1
 
 - Remove unnecessary files from npm package

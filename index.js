@@ -1,4 +1,5 @@
 import deepEqual from './utils/deepEqual.js';
+import clone from './utils/clone.js';
 
 let store = {};
 /**
@@ -16,7 +17,7 @@ export default {
 
     if (!store[key]) {
       // New key, let's create it and that's all.
-      store[key] = { value: newValue, subscribers: [] };
+      store[key] = { value: clone(newValue), subscribers: [] };
       return;
     }
 
@@ -26,9 +27,9 @@ export default {
       // then we don't notify
       return;
     }
-    store[key].value = newValue;
+    store[key].value = clone(newValue);
 
-    store[key].subscribers.forEach(callback => callback(newValue, prevValue));
+    store[key].subscribers.forEach(callback => callback(clone(newValue), clone(prevValue)));
   },
 
   /**
@@ -36,7 +37,7 @@ export default {
    * @param {*} key
    */
   get(key) {
-    return !store[key] ? undefined : store[key].value;
+    return store[key] ? clone(store[key].value) : undefined;
   },
 
   /**
