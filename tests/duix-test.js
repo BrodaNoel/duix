@@ -131,6 +131,39 @@ describe('duix', function () {
     expect(notMutatedValue[0].username).toBe('aaa');
   });
 
+  it('should not mutate the values on pre-subscriber call', function () {
+    const k = 'k' + ki++;
+    const value = { username: 'aaa' };
+    duix.set(k, value);
+
+    duix.subscribe(k, (newValue, prevValue) => {
+      expect(newValue.username).toBe('bbb');
+      expect(prevValue.username).toBe('aaa');
+    });
+
+    // Here we mutate what should be `prevValue` on the subscriber
+    value.username = 'bbb';
+    duix.set(k, value);
+  });
+
+  it('should not mutate the value on the subscriber function', function () {
+    const k = 'k' + ki++;
+    const value = { username: '' };
+    duix.set(k, value);
+
+    duix.subscribe(k, newValue => {
+      // Here we try to mutate
+      newValue.username = 'bbb';
+
+      const actualValue = duix.get(k);
+      expect(actualValue.username).toBe('aaa');
+    });
+
+    value.username = 'aaa';
+
+    duix.set(k, value);
+  });
+
   describe('with multiple keys', function () {
     it('get/set', function () {
       const k1 = 'k' + ki++;
