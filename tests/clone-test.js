@@ -47,4 +47,25 @@ describe('clone', function () {
     // Cloned should not mutate
     expect(cloned.getTime() === NOW).toBeTrue();
   });
+
+
+  it('should clone classes', function () {
+    class CloneTest {
+      test() { return 1; }
+    };
+    const foo = new CloneTest();
+    foo.username = 'aaa';
+
+    const cloned = clone(foo);
+
+    foo.username = 'bbb';
+
+    expect(foo.username === 'bbb').toBeTrue();
+    expect(cloned.username === 'aaa').toBeTrue();
+
+    expect(foo.test()).toBe(1);
+    expect(cloned.test()).toBe(1);
+    expect(foo).toEqual(jasmine.any(CloneTest));
+    expect(cloned instanceof CloneTest).toBeTrue();
+  });
 });
