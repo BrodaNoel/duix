@@ -78,7 +78,7 @@
 
     // Handle Object
     if (obj instanceof Object) {
-      copy = {};
+      copy = Object.create(Object.getPrototypeOf(obj));
       for (var attr in obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
       }
