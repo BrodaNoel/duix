@@ -1,3 +1,8 @@
+### 3.0.3
+
+- Update dependencies in order to remove securuty vulnerabilities
+- New build contains better definitions
+
 ### 3.0.1
 
 - Support clonning Classes
