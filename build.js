@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.duix = factory());
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.duix = factory());
+})(this, (function () { 'use strict';
 
   /**
    * Compare two elements and return true if they are 'equivalent'
@@ -166,4 +166,4 @@
 
   return index;
 
-})));
+}));
