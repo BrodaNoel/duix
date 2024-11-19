@@ -1,3 +1,7 @@
+### 3.0.4
+
+- Update dependencies
+
 ### 3.0.3
 
 - Update dependencies in order to remove securuty vulnerabilities
