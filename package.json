@@ -1,6 +1,6 @@
 {
   "name": "duix",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "author": {
     "name": "Broda Noel",
     "email": "brodanoel@gmail.com"
@@ -23,7 +23,7 @@
     "eslint": "^7.1.0",
     "esm": "^3.2.25",
     "jasmine": "^3.5.0",
-    "rollup": "^2.11.2",
+    "rollup": "^2.79.2",
     "typescript": "^3.9.3"
   },
   "scripts": {
