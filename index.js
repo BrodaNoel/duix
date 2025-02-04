@@ -9,10 +9,18 @@ let store = {};
 export default {
   /**
    * Store data into the storage
-   * @param {*} key: the key under wich the value will be stored
-   * @param {*} newValue: the associated data
+   * @param {*} key - The key under which the value will be stored
+   * @param {*} newValue - The associated data
+   * @param {object} options
+   * @param {boolean} [options.checkForChangesInTheValue=false] - If true, will call subscribers only if the value actually changed
    */
-  set(key, newValue) {
+  set(key, newValue, options) {
+    // Set the default options
+    options = {
+      checkForChangesInTheValue: true,
+      ...options,
+    };
+
     let prevValue = undefined;
 
     if (!store[key]) {
@@ -22,7 +30,7 @@ export default {
     }
 
     prevValue = store[key].value;
-    if (deepEqual(newValue, prevValue)) {
+    if (options.checkForChangesInTheValue && deepEqual(newValue, prevValue)) {
       // If we have a previous value, and if it is the same,
       // then we don't notify
       return;

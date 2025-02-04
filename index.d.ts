@@ -1,10 +1,14 @@
 declare var _default: {
     /**
      * Store data into the storage
-     * @param {*} key: the key under wich the value will be stored
-     * @param {*} newValue: the associated data
+     * @param {*} key - The key under which the value will be stored
+     * @param {*} newValue - The associated data
+     * @param {object} options
+     * @param {boolean} [options.checkForChangesInTheValue=false] - If true, will call subscribers only if the value actually changed
      */
-    set(key: any, newValue: any): void;
+    set(key: any, newValue: any, options: {
+        checkForChangesInTheValue: boolean;
+    }): void;
     /**
      * Return the data associated to the key
      * @param {*} key
