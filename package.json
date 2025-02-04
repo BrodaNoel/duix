@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BrodaNoel/duix"
+    "url": "git+https://github.com/BrodaNoel/duix.git"
   },
   "devDependencies": {
     "eslint": "^7.1.0",
